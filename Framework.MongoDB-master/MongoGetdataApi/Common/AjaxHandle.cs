@@ -44,8 +44,7 @@ namespace MongoGetdataApi.Common
                 int pageI = int.Parse(pageIndex);
                 int pageS = int.Parse(pageSize);
                 Common com = new Common(Database, tbName);
-                var count = com.GetCountAsync<Order>(a => a.OrderDateTime>dtFrom&&a.OrderDateTime<dtEnd).Result.ToString();
-                var pageCount = int.Parse(count) % pageS == 0 ? int.Parse(count) / pageS : (int.Parse(count) / pageS) + 1;
+               
                 var item = com.GetItemAsync<Order>(a => a.OrderDateTime > dtFrom && a.OrderDateTime < dtEnd,pageI,pageS).Result.ToList();
                 var data = "[";
                 StringBuilder sb = new StringBuilder();
@@ -55,7 +54,7 @@ namespace MongoGetdataApi.Common
                     
                 });
                 data += sb.ToString().TrimEnd(',') + "]";
-                return "{\"status\":\"1\",\"data\":" + data + ",\"message\":\"请求成功\",\"pageInfo\":[{\"count\":\""+ count + "\",\"pageCount\":\""+ pageCount + "\"}]}";
+                return "{\"status\":\"1\",\"data\":" + data + ",\"message\":\"请求成功\"}";
             }
             catch (Exception)
             {

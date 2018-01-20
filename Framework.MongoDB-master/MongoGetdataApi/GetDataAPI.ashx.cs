@@ -35,10 +35,13 @@ namespace MongoGetdataApi
                 {
                     //时间查询订单
                     string fromTime = context.Request.Params["fromTime"];
-                    string endTime= context.Request.Params["endTime"];
+                    string endTime = context.Request.Params["endTime"];
                     string pageIndex = context.Request.Params["pageIndex"];
                     string pageSize = context.Request.Params["pageSize"];
                     context.Response.Write(AjaxHandle.SerchByTime(fromTime, pageIndex, pageSize, endTime));
+                }
+                else {
+                    context.Response.Write("{\"status\":\"0\",\"data\":\"\",\"message\":\"非法请求\"}");
                 }
             }
 
